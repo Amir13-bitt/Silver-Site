@@ -27,6 +27,7 @@
       if (v != null) el.innerHTML = v;
     });
     $$(".reveal-words").forEach(splitWords);
+    if (window.Shop) window.Shop.setLang(lang);
     $$(".count").forEach((el) => { if (el.dataset.done) el.textContent = fmt(+el.dataset.to); });
     try { localStorage.setItem("fm-lang", lang); } catch (e) {}
     measure();
