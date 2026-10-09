@@ -456,3 +456,131 @@ html[lang="fa"] .contact__title { font-family: "Vazirmatn", serif; font-weight: 
 
 /* Persian digits read better in Vazirmatn than in the Latin display serif */
 html[lang="fa"] .step__num, html[lang="fa"] .stats strong { font-family: "Vazirmatn", serif; font-weight: 200; }
+
+/* ---------- Announcement bar (inside the nav, hides with it) ---------- */
+.nav { flex-wrap: wrap; row-gap: .9rem; }
+.announce {
+  flex-basis: calc(100% + 2 * var(--gutter));
+  order: -1;
+  margin: -1.25rem calc(var(--gutter) * -1) 0;
+  padding: .55rem var(--gutter);
+  background: rgba(0, 0, 0, .55);
+  color: #c6cad0;
+  font-size: .78rem;
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: balance;
+}
+@media (max-width: 760px) { .announce { font-size: .7rem; } }
+
+/* ---------- Collection cards with a real product photo ---------- */
+.card--collection { display: block; color: inherit; }
+.card__art { position: relative; }
+.card__photo {
+  position: absolute; inset: 8%;
+  width: 84%; height: 84%; object-fit: cover;
+  border-radius: 20px;
+  filter: grayscale(.25) contrast(1.05);
+  transition: transform 1s var(--ease), filter .6s;
+}
+.card:hover .card__photo { transform: scale(1.04); filter: none; }
+.card--collection .card__num { font-family: var(--sans); }
+.card--collection h3 { font-family: "Cormorant Garamond", serif; letter-spacing: .06em; }
+.card--collection p:empty { display: none; }
+
+/* ---------- Shop ---------- */
+.shop { padding: clamp(5rem, 12vw, 10rem) var(--gutter); }
+.shop__head { margin-bottom: 2.5rem; }
+.filters { display: grid; gap: 1.1rem; margin-bottom: 1.5rem; }
+.filter { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; }
+.filter__label { min-width: 6.5rem; font-size: .8rem; color: var(--muted); letter-spacing: .08em; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .5rem 1rem; border-radius: 99px;
+  border: 1px solid var(--line); color: #c6cad0; font-size: .85rem;
+  transition: background .4s var(--ease), color .4s, border-color .4s;
+}
+.chip small { font-size: .7rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip:hover:not(:disabled) { border-color: rgba(255, 255, 255, .45); color: var(--ink); }
+.chip.is-on { background: var(--silver); background-size: 250% 100%; color: #0b0c0e; border-color: transparent; animation: shimmer 6s linear infinite; }
+.chip.is-on small { color: #3a3d42; }
+.chip:disabled { opacity: .35; cursor: default; }
+.chip:focus-visible, .pcard:focus-visible, .pmodal button:focus-visible { outline: 2px solid #e9ebee; outline-offset: 3px; }
+.shop__count { color: var(--muted); font-size: .85rem; margin: 0 0 1.5rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+.grid__empty { grid-column: 1 / -1; display: grid; justify-items: start; gap: 1rem; color: var(--muted); padding: 3rem 0; }
+
+.pcard {
+  display: grid; gap: .45rem; text-align: start; min-width: 0;
+  animation: pcard-in .9s var(--ease) both;
+  animation-delay: calc(min(var(--i), 12) * 60ms);
+}
+@keyframes pcard-in { from { opacity: 0; transform: translateY(24px) scale(.98); } }
+.pcard__media {
+  position: relative; display: block; aspect-ratio: 4 / 5; max-width: 100%;
+  border-radius: 22px; overflow: hidden;
+  background: linear-gradient(160deg, #1a1d22, #0f1013);
+  border: 1px solid var(--line);
+  margin-bottom: .4rem;
+}
+.pcard__media .ph, .pmodal__main .ph { position: absolute; inset: 15%; width: 70%; height: 70%; opacity: 0; transition: opacity .4s; }
+[data-media].is-broken .ph { opacity: 1; }
+.pcard__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s var(--ease), opacity .7s var(--ease);
+}
+.pcard__img--alt { opacity: 0; }
+.pcard:hover .pcard__img { transform: scale(1.06); }
+.pcard:hover .pcard__img--alt { opacity: 1; }
+.pcard.is-out .pcard__img { filter: grayscale(1) brightness(.7); }
+.badge {
+  position: absolute; top: .8rem; inset-inline-start: .8rem;
+  padding: .3rem .7rem; border-radius: 99px;
+  background: rgba(11, 12, 14, .7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-size: .72rem; color: var(--ink);
+}
+.badge--out { background: rgba(233, 235, 238, .9); color: #0b0c0e; }
+.pcard__meta { font-size: .75rem; color: var(--muted); }
+.pcard__name { font-family: var(--serif); font-size: 1.25rem; line-height: 1.3; }
+.pcard__price { font-size: .9rem; color: #c6cad0; font-variant-numeric: tabular-nums; }
+
+/* ---------- Product dialog ---------- */
+.pmodal {
+  width: min(980px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+  padding: 0; border: 1px solid var(--line); border-radius: 28px;
+  background: var(--bg-2); color: var(--ink);
+  overflow: auto;
+}
+.pmodal[open] { display: grid; grid-template-columns: 1.1fr 1fr; animation: pmodal-in .7s var(--ease); }
+.pmodal::backdrop { background: rgba(5, 6, 8, .72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+@keyframes pmodal-in { from { opacity: 0; transform: translateY(30px) scale(.97); } }
+.pmodal__close {
+  position: absolute; top: 1rem; inset-inline-end: 1rem; z-index: 2;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(11, 12, 14, .6); border: 1px solid var(--line); font-size: 1.4rem; line-height: 1;
+}
+.pmodal__gallery { display: grid; gap: .6rem; padding: 1rem; align-content: start; min-width: 0; }
+.pmodal__main { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 20px; overflow: hidden; background: #111317; }
+.pmodal__main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: fade .6s var(--ease); }
+@keyframes fade { from { opacity: 0; } }
+.pmodal__thumbs { display: flex; gap: .5rem; flex-wrap: wrap; }
+.pmodal__thumbs button { position: relative; width: 64px; height: 64px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); opacity: .55; transition: opacity .3s; }
+.pmodal__thumbs button.is-on { opacity: 1; border-color: #e9ebee; }
+.pmodal__thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.pmodal__info { padding: clamp(1.5rem, 4vw, 3rem); display: grid; gap: .8rem; align-content: center; min-width: 0; }
+.pmodal__meta { margin: 0; font-size: .8rem; color: var(--muted); }
+.pmodal__title { margin: 0; font-family: var(--serif); font-weight: 300; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.2; }
+.pmodal__price { margin: 0; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.pmodal__stock { margin: 0; font-size: .85rem; color: var(--muted); }
+.pmodal__stock:empty { display: none; }
+.pmodal__desc { margin: .4rem 0 1rem; color: #aab0b8; white-space: pre-line; }
+.pmodal__order { justify-self: start; }
+@media (max-width: 760px) {
+  .pmodal[open] { grid-template-columns: 1fr; }
+}

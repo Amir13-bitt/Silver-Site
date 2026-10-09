@@ -18,7 +18,18 @@ Every push to `main` deploys to GitHub Pages via `.github/workflows/pages.yml`
 (one-time setup: **Settings → Pages → Source: GitHub Actions**).
 The site uses only relative paths, so it also works from any other static host (Netlify, Vercel, cPanel).
 
+## Products
+The shop reads `js/products.js`, which is generated from the store's product export:
+```sh
+pip install openpyxl
+python3 scripts/import_products.py products.xlsx
+```
+Each product has two dimensions, **category** and **collection**, and the shop filters on both.
+The export's collection column is empty, so the script detects the collection from the description.
+Assign the rest in `COLLECTION_OVERRIDES` at the top of the script. English names live in `EN`.
+Prices are stored in rials and shown in toman. Draft products are skipped.
+Image links pointing to `localhost` are dropped, and those products show a silver placeholder.
+
 ## Before going live: replace placeholders
 - **Copy**: edit `js/i18n.js`. The story, collection names and descriptions are drafts.
 - **Contact links**: in `index.html` (`#contact`), fill in the real Instagram handle, the WhatsApp number (`https://wa.me/<number>`) and the email address.
-- **Product photos**: the collection cards use SVG illustrations (`.card__art`). Swap in real photos with `<img src="..." alt="...">` when they're available.
