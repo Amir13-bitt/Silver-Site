@@ -14,9 +14,23 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 ## Deploy
-Every push to `main` deploys to GitHub Pages via `.github/workflows/pages.yml`
-(one-time setup: **Settings → Pages → Source: GitHub Actions**).
-The site uses only relative paths, so it also works from any other static host (Netlify, Vercel, cPanel).
+Every push to `main` copies the site to your own server over SSH (`.github/workflows/deploy.yml`).
+The repo can stay private. Add these repository secrets under **Settings → Secrets and variables → Actions**:
+
+| Secret | Example |
+| --- | --- |
+| `SSH_HOST` | `faezemollaei.com` |
+| `SSH_USER` | your SSH user name |
+| `SSH_PRIVATE_KEY` | a private key whose public half is in the server's `~/.ssh/authorized_keys` |
+| `DEPLOY_PATH` | the folder the site is served from, e.g. `/home/USER/public_html` |
+| `SSH_PORT` (optional) | defaults to `22` |
+
+Create a dedicated key for deploys (no passphrase), then add the `.pub` line to the server's `~/.ssh/authorized_keys`:
+```sh
+ssh-keygen -t ed25519 -f silver-deploy -N "" -C "silver-site deploy"
+```
+Paste the contents of `silver-deploy` (the private key) into the `SSH_PRIVATE_KEY` secret.
+Files already in `DEPLOY_PATH` that aren't part of this site are left untouched.
 
 ## Products
 The shop reads `js/products.js`, which is generated from the store's product export:
