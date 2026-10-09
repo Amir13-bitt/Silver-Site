@@ -13,7 +13,10 @@ A bilingual (Persian RTL / English) single-page site for Faeze Mollaei's handmad
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
-Deploy by uploading the folder to any static host (GitHub Pages, Netlify, Vercel, cPanel).
+## Deploy
+Every push to `main` deploys to GitHub Pages via `.github/workflows/pages.yml`
+(one-time setup: **Settings → Pages → Source: GitHub Actions**).
+The site uses only relative paths, so it also works from any other static host (Netlify, Vercel, cPanel).
 
 ## Before going live: replace placeholders
 - **Copy**: edit `js/i18n.js`. The story, collection names and descriptions are drafts.
