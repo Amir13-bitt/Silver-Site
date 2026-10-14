@@ -25,6 +25,26 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+
+      # Product photo cutouts (transparent backgrounds), made at build time.
+      # If anything here fails, the site still deploys with the original photos.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Restore cutout model and finished cutouts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.rembg
+            assets/products
+          key: cutouts-${{ hashFiles('js/products.js', 'scripts/cutout_images.py', 'scripts/cutout_skip.txt') }}
+          restore-keys: cutouts-
+      - name: Remove photo backgrounds
+        continue-on-error: true
+        run: |
+          pip install --quiet "rembg[cpu]==2.0.85" pillow
+          python scripts/cutout_images.py
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

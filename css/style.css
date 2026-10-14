@@ -11,14 +11,19 @@
   --silver: linear-gradient(110deg, #8d929a 0%, #f4f5f7 22%, #9ca1a9 40%, #ffffff 52%, #7b8088 70%, #e6e8eb 88%, #8d929a 100%);
   --accent: #bcd3e6;
   --ease: cubic-bezier(.16, 1, .3, 1);
-  --serif: "Cormorant Garamond", "Vazirmatn", serif;
-  --sans: "Inter", "Vazirmatn", system-ui, sans-serif;
+  /* Type: Bodoni Moda (high-contrast display) + Jost (geometric body) for Latin;
+     Noto Nastaliq (calligraphic display), Markazi Text (headings), Vazirmatn (body) for Persian. */
+  --latin: "Bodoni Moda", "Markazi Text", Georgia, serif;
+  --display: "Bodoni Moda", Georgia, serif;
+  --serif: "Bodoni Moda", "Markazi Text", Georgia, serif;
+  --sans: "Jost", "Vazirmatn", system-ui, sans-serif;
   --gutter: clamp(16px, 4vw, 56px);
 }
 
 html[lang="fa"] {
-  --serif: "Vazirmatn", serif;
-  --sans: "Vazirmatn", system-ui, sans-serif;
+  --display: "Noto Nastaliq Urdu", "Markazi Text", serif;
+  --serif: "Markazi Text", "Vazirmatn", serif;
+  --sans: "Vazirmatn", "Jost", system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -104,13 +109,13 @@ html[lang="fa"] .eyebrow { letter-spacing: .05em; font-size: .85rem; }
 .loader__mark circle { stroke-dasharray: 276; stroke-dashoffset: 200; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loader__name {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--latin);
   font-size: 1.6rem; letter-spacing: .25em; text-transform: uppercase;
   background: var(--silver); background-size: 250% 100%;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: shimmer 3s linear infinite;
 }
-.loader__count { font-family: "Inter", sans-serif; font-size: .75rem; color: var(--muted); letter-spacing: .2em; }
+.loader__count { font-family: "Jost", sans-serif; font-size: .75rem; color: var(--muted); letter-spacing: .2em; }
 
 /* ---------- Cursor ---------- */
 .cursor {
@@ -127,7 +132,7 @@ html[lang="fa"] .eyebrow { letter-spacing: .05em; font-size: .85rem; }
 .cursor.is-visible { opacity: 1; }
 .cursor.is-hover { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
 .cursor.is-label { width: 88px; height: 88px; margin: -44px 0 0 -44px; mix-blend-mode: normal; background: rgba(240, 242, 245, .92); }
-.cursor__label { font-family: "Inter", sans-serif; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: #0b0c0e; opacity: 0; transition: opacity .3s; }
+.cursor__label { font-family: "Jost", "Vazirmatn", sans-serif; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: #0b0c0e; opacity: 0; transition: opacity .3s; }
 .cursor.is-label .cursor__label { opacity: 1; }
 @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 
@@ -154,7 +159,7 @@ html[lang="fa"] .eyebrow { letter-spacing: .05em; font-size: .85rem; }
 .lang {
   position: relative; display: flex; align-items: center; gap: .8rem;
   padding: .45rem .9rem; border: 1px solid var(--line); border-radius: 99px;
-  font-family: "Inter", "Vazirmatn", sans-serif; font-size: .78rem;
+  font-family: "Jost", "Vazirmatn", sans-serif; font-size: .78rem;
   direction: ltr;
 }
 .lang span { position: relative; z-index: 1; color: var(--muted); transition: color .4s; min-width: 1.4em; text-align: center; }
@@ -235,14 +240,18 @@ html[dir="rtl"].menu-open .menu, html[dir="rtl"] .menu-open .menu { clip-path: c
 }
 .hero__content { position: relative; z-index: 2; width: 100%; }
 .hero__title {
-  font-family: "Cormorant Garamond", var(--serif);
-  font-weight: 300;
+  font-family: var(--display);
+  font-weight: 400;
   font-size: clamp(4.2rem, 17vw, 15rem);
   line-height: .9;
   margin: 0 0 2rem;
   letter-spacing: -.02em;
 }
-html[lang="fa"] .hero__title { font-family: "Vazirmatn", serif; font-weight: 200; line-height: 1.05; letter-spacing: 0; font-size: clamp(5rem, 22vw, 15rem); }
+html[lang="en"] .hero__title .line--indent .word { font-style: italic; }
+/* Nastaliq climbs and dips far beyond the em box: give each masked line room. */
+html[lang="fa"] .hero__title { font-weight: 400; line-height: 1.45; letter-spacing: 0; font-size: clamp(4rem, 17vw, 9rem); margin-bottom: clamp(2.2rem, 5vw, 3.6rem); }
+html[lang="fa"] .hero__title .line { padding: .05em 0 .65em; margin-bottom: -.7em; }
+html[lang="fa"] .hero__title .line--indent { padding-inline-start: 18vw; }
 .hero__title .line { display: block; overflow: hidden; padding-bottom: .06em; }
 .hero__title .line--indent { padding-inline-start: 14vw; }
 .hero__title .word { display: inline-block; transform: translateY(110%); transition: transform 1.4s var(--ease); }
@@ -280,8 +289,8 @@ html[lang="fa"] .hero__title { font-family: "Vazirmatn", serif; font-weight: 200
 .marquee__track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
 html[dir="rtl"] .marquee__track { animation-name: marquee-rtl; }
 .marquee span {
-  font-family: "Cormorant Garamond", var(--serif);
-  font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; white-space: pre;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 4rem); font-weight: 400; white-space: pre;
   padding-inline-end: 1rem;
   color: transparent; -webkit-text-stroke: 1px rgba(233, 235, 238, .5);
 }
@@ -309,7 +318,7 @@ html[lang="fa"] .story h2 { line-height: 1.7; }
 .stats { display: flex; gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: 3rem; flex-wrap: wrap; }
 .stats div { display: grid; gap: .3rem; }
 .stats strong {
-  font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1;
+  font-family: var(--latin); font-weight: 400; font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1;
   background: var(--silver); background-size: 250% 100%;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: shimmer 7s linear infinite;
@@ -363,7 +372,7 @@ html[dir="rtl"] .collections__progress i { transform-origin: right; }
 .card__art svg { width: 100%; transition: transform 1s var(--ease); }
 .card:hover .card__art svg { transform: scale(1.08) rotate(-4deg); }
 .card__meta { padding: 0 1.8rem 1.8rem; position: relative; }
-.card__num { position: absolute; top: -.3rem; inset-inline-end: 1.8rem; font-family: "Inter", sans-serif; font-size: .75rem; color: var(--muted); }
+.card__num { position: absolute; top: -.3rem; inset-inline-end: 1.8rem; font-family: var(--sans); font-size: .75rem; color: var(--muted); }
 .card h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.8rem, 2.6vw, 2.4rem); margin: 0 0 .4rem; line-height: 1.2; }
 .card p { margin: 0 0 1.2rem; color: #9aa0a8; font-size: .92rem; }
 .card__tag { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); }
@@ -386,7 +395,7 @@ html[lang="fa"] .craft__head .section-title { line-height: 1.5; }
 .craft__line path { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
 .step { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start; }
 .step__num {
-  font-family: "Cormorant Garamond", var(--serif); font-size: 3.2rem; line-height: 1; font-weight: 300;
+  font-family: var(--latin); font-size: 3.2rem; line-height: 1; font-weight: 400; font-style: italic;
   color: transparent; -webkit-text-stroke: 1px rgba(233, 235, 238, .6);
 }
 .step h3 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; margin: 0 0 .5rem; }
@@ -396,12 +405,12 @@ html[lang="fa"] .craft__head .section-title { line-height: 1.5; }
 /* ---------- Statement ---------- */
 .statement { padding: clamp(5rem, 12vw, 10rem) var(--gutter); }
 .statement__text {
-  font-family: var(--serif); font-weight: 300;
+  font-family: var(--display); font-weight: 400;
   font-size: clamp(2.2rem, 6.5vw, 6rem); line-height: 1.15; margin: 0; max-width: 18ch;
   background: linear-gradient(90deg, #f4f5f7 0%, #f4f5f7 var(--fill, 0%), #2a2d32 var(--fill, 0%), #2a2d32 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-html[dir="rtl"] .statement__text { background: linear-gradient(270deg, #f4f5f7 0%, #f4f5f7 var(--fill, 0%), #2a2d32 var(--fill, 0%), #2a2d32 100%); -webkit-background-clip: text; background-clip: text; line-height: 1.6; }
+html[dir="rtl"] .statement__text { background: linear-gradient(270deg, #f4f5f7 0%, #f4f5f7 var(--fill, 0%), #2a2d32 var(--fill, 0%), #2a2d32 100%); -webkit-background-clip: text; background-clip: text; line-height: 2.1; font-size: clamp(1.9rem, 5vw, 4.4rem); padding-block: .3em; }
 
 /* ---------- Contact ---------- */
 .contact { position: relative; padding: clamp(6rem, 14vw, 12rem) var(--gutter); text-align: center; overflow: hidden; }
@@ -414,8 +423,10 @@ html[dir="rtl"] .statement__text { background: linear-gradient(270deg, #f4f5f7 0
   animation: breathe 8s ease-in-out infinite;
 }
 @keyframes breathe { 50% { transform: translate(-50%, -50%) scale(1.15); opacity: .7; } }
-.contact__title { font-family: "Cormorant Garamond", var(--serif); font-weight: 300; font-size: clamp(3.2rem, 11vw, 10rem); line-height: .95; margin: 0 0 2rem; position: relative; }
-html[lang="fa"] .contact__title { font-family: "Vazirmatn", serif; font-weight: 200; line-height: 1.3; }
+.contact__title { font-family: var(--display); font-weight: 400; font-size: clamp(3.2rem, 11vw, 10rem); line-height: .95; margin: 0 0 2rem; position: relative; }
+html[lang="en"] .contact__title .line:nth-child(2) .word { font-style: italic; }
+html[lang="fa"] .contact__title { line-height: 1.9; font-size: clamp(2.8rem, 9vw, 7.5rem); }
+html[lang="fa"] .contact__title .line { padding: .1em 0 .6em; margin-bottom: -.7em; }
 .contact__title .line { display: block; overflow: hidden; }
 .contact__title .word { display: inline-block; transform: translateY(105%); transition: transform 1.3s var(--ease); }
 .contact__title.in .word { transform: none; }
@@ -427,7 +438,7 @@ html[lang="fa"] .contact__title { font-family: "Vazirmatn", serif; font-weight: 
 /* ---------- Footer ---------- */
 .footer { padding: 0 var(--gutter) 2rem; border-top: 1px solid var(--line); overflow: hidden; }
 .footer__big {
-  font-family: "Cormorant Garamond", serif; font-weight: 300;
+  font-family: var(--latin); font-weight: 400; font-style: italic;
   font-size: clamp(3rem, 15vw, 16rem); line-height: 1; white-space: nowrap;
   text-align: center; padding: 3rem 0 1.5rem; direction: ltr;
 }
@@ -455,7 +466,7 @@ html[lang="fa"] .contact__title { font-family: "Vazirmatn", serif; font-weight: 
 }
 
 /* Persian digits read better in Vazirmatn than in the Latin display serif */
-html[lang="fa"] .step__num, html[lang="fa"] .stats strong { font-family: "Vazirmatn", serif; font-weight: 200; }
+html[lang="fa"] .step__num, html[lang="fa"] .stats strong { font-family: "Markazi Text", serif; font-weight: 400; font-style: normal; }
 
 /* ---------- Announcement bar (inside the nav, hides with it) ---------- */
 .nav { flex-wrap: wrap; row-gap: .9rem; }
@@ -485,7 +496,7 @@ html[lang="fa"] .step__num, html[lang="fa"] .stats strong { font-family: "Vazirm
 }
 .card:hover .card__photo { transform: scale(1.04); filter: none; }
 .card--collection .card__num { font-family: var(--sans); }
-.card--collection h3 { font-family: "Cormorant Garamond", serif; letter-spacing: .06em; }
+.card--collection h3 { font-family: var(--latin); letter-spacing: .06em; }
 .card--collection p:empty { display: none; }
 
 /* ---------- Shop ---------- */
@@ -584,3 +595,34 @@ html[lang="fa"] .step__num, html[lang="fa"] .stats strong { font-family: "Vazirm
 @media (max-width: 760px) {
   .pmodal[open] { grid-template-columns: 1fr; }
 }
+
+/* ---------- Type tuning for the Persian faces ---------- */
+html[lang="fa"] .section-title { font-size: clamp(2.6rem, 6.4vw, 5.4rem); font-weight: 500; line-height: 1.35; }
+html[lang="fa"] .story h2 { font-size: clamp(2rem, 3.8vw, 3.4rem); font-weight: 400; line-height: 1.6; }
+html[lang="fa"] .card h3, html[lang="fa"] .pcard__name, html[lang="fa"] .pmodal__title, html[lang="fa"] .step h3 { font-weight: 500; }
+html[lang="fa"] .pcard__name { font-size: 1.45rem; }
+html[lang="fa"] .menu a { font-family: var(--display); line-height: 2; font-size: clamp(2rem, 8vw, 3.2rem); }
+html[lang="en"] .section-title em, html[lang="en"] .pmodal__title { font-style: italic; }
+
+/* ---------- Cutout product photos (transparent backgrounds) ---------- */
+.pcard--cutout .pcard__media {
+  background: radial-gradient(closest-side, rgba(200, 208, 220, .10), transparent 72%);
+  border-color: transparent;
+}
+.pcard--cutout .pcard__img {
+  inset: 9%; width: 82%; height: 82%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .55));
+}
+.pcard--cutout:hover .pcard__img { transform: translateY(-6px) scale(1.05); }
+.pcard--cutout:hover .pcard__img--alt { transform: translateY(-6px) scale(1.05); }
+.pcard--cutout.is-out .pcard__img { filter: grayscale(1) brightness(.6) drop-shadow(0 18px 22px rgba(0, 0, 0, .55)); }
+.pmodal--cutout .pmodal__main { background: radial-gradient(closest-side, rgba(200, 208, 220, .12), transparent 75%); }
+.pmodal--cutout .pmodal__main img { inset: 8%; width: 84%; height: 84%; object-fit: contain; filter: drop-shadow(0 22px 26px rgba(0, 0, 0, .6)); }
+.pmodal--cutout .pmodal__thumbs img { object-fit: contain; }
+.card__photo--cutout { object-fit: contain; border-radius: 0; filter: drop-shadow(0 16px 20px rgba(0, 0, 0, .55)); }
+
+/* Silver gradient text only paints inside each word's box; Nastaliq strokes reach
+   well outside it, so pad the box (and cancel the padding with margins) in Persian. */
+html[lang="fa"] .hero__title .word,
+html[lang="fa"] .contact__title .word { padding: .25em .35em .75em; margin: -.25em -.35em -.75em; }

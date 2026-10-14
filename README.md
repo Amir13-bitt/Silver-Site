@@ -27,8 +27,14 @@ python3 scripts/import_products.py products.xlsx
 Each product has two dimensions, **category** and **collection**, and the shop filters on both.
 The export's collection column is empty, so the script detects the collection from the description.
 Assign the rest in `COLLECTION_OVERRIDES` at the top of the script. English names live in `EN`.
-Prices are stored in rials and shown in toman. Draft products are skipped.
-Image links pointing to `localhost` are dropped, and those products show a silver placeholder.
+Prices are stored in rials and shown in toman. Draft products are skipped, and so are products without a usable photo
+(image links pointing to `localhost` are dropped). Only availability is published ("Sold out"), never stock counts.
+
+### Photo cutouts
+On every deploy, `scripts/cutout_images.py` downloads the product photos, removes their backgrounds (rembg, `isnet-general-use`)
+and serves transparent cutouts from `assets/products/`. Lifestyle shots (a piece worn by a model, fruit, fabric) are skipped
+automatically. To drop a cutout you don't like, add the product handle, or `handle-2` for its second photo, to
+`scripts/cutout_skip.txt`. If the cutout step fails, the site deploys with the original photos.
 
 ## Before going live: replace placeholders
 - **Copy**: edit `js/i18n.js`. The story, collection names and descriptions are drafts.
