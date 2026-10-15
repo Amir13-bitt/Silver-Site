@@ -1,0 +1,3 @@
+# Product photos to leave out of the background removal, one per line.
+# Use the product handle (e.g. horse-necklace) to skip all of its photos,
+# or handle-N (e.g. horse-necklace-2) to skip only its Nth photo.

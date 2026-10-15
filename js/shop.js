@@ -28,10 +28,9 @@
     return `<img class="${cls}" src="${esc(src(url))}" alt="${esc(alt)}" loading="lazy" decoding="async" onerror="this.closest('[data-media]')?.classList.add('is-broken');this.remove()">`;
   }
 
+  // Only availability is shown, never how many are in stock.
   function stockLabel(p) {
-    if (p.stock === 0) return `<span class="badge badge--out">${t("shop.soldout")}</span>`;
-    if (p.stock === 1) return `<span class="badge">${t("shop.last")}</span>`;
-    return "";
+    return p.available ? "" : `<span class="badge badge--out">${t("shop.soldout")}</span>`;
   }
 
   function metaLine(p) {
@@ -87,7 +86,7 @@
     grid.innerHTML = list.map((p, i) => {
       const name = p.name[state.lang] || p.name.fa;
       const [a, b] = p.images;
-      return `<button type="button" class="pcard${p.stock === 0 ? " is-out" : ""}" data-handle="${esc(p.handle)}" data-cursor="view" style="--i:${i}">
+      return `<button type="button" class="pcard${p.available ? "" : " is-out"}${p.cutout ? " pcard--cutout" : ""}" data-handle="${esc(p.handle)}" data-cursor="view" style="--i:${i}">
         <span class="pcard__media${a ? "" : " is-broken"}" data-media>
           ${PLACEHOLDER}
           ${a ? imgTag(a, name, "pcard__img") : ""}
@@ -120,7 +119,7 @@
       const art = card.querySelector(".card__art");
       if (withPhoto && !art.querySelector("img")) {
         art.setAttribute("data-media", "");
-        art.insertAdjacentHTML("beforeend", imgTag(withPhoto.images[0], "", "card__photo"));
+        art.insertAdjacentHTML("beforeend", imgTag(withPhoto.images[0], "", "card__photo" + (withPhoto.cutout ? " card__photo--cutout" : "")));
       }
     });
   }
@@ -151,10 +150,10 @@
     $(".pmodal__meta").innerHTML = metaLine(p);
     $(".pmodal__title").textContent = name;
     $(".pmodal__price").textContent = price(p.price);
-    $(".pmodal__stock").textContent =
-      p.stock === 0 ? t("shop.soldout") : p.stock === 1 ? t("shop.last") : p.stock ? t("shop.instock", p.stock) : "";
+    $(".pmodal__stock").textContent = p.available ? "" : t("shop.soldout");
     $(".pmodal__desc").textContent = p.desc[state.lang] || p.desc.fa;
-    $(".pmodal__order").hidden = p.stock === 0;
+    $(".pmodal__order").hidden = !p.available;
+    dialog.classList.toggle("pmodal--cutout", !!p.cutout);
     showImage(0);
     $(".pmodal__thumbs").innerHTML = p.images.length > 1
       ? p.images.map((u, i) => `<button type="button" data-img="${i}" class="${i ? "" : "is-on"}" data-media>${imgTag(u, "")}</button>`).join("")

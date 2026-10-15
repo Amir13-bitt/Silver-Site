@@ -90,6 +90,8 @@ def main(path):
             for i in image_cols
             if row[i].hyperlink and not row[i].hyperlink.target.startswith("http://localhost")
         ]
+        if not images:
+            continue  # products without a usable photo aren't shown
         name_en, desc_en = EN.get(handle, (handle.replace("-", " ").title(), ""))
         products.append({
             "handle": handle,
@@ -98,7 +100,8 @@ def main(path):
             "category": CATEGORIES.get(category_raw, "other"),
             "collection": collection_for(handle, v[col["مجموعه"]], description),
             "price": price,  # IRR
-            "stock": stock if isinstance(stock, int) else None,
+            # Only availability is published, never the stock count.
+            "available": stock != 0,
             "images": images,
         })
 
