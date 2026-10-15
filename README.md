@@ -34,7 +34,7 @@ Prices are stored in rials and shown in toman. Draft products are skipped, and s
 On every deploy, `scripts/cutout_images.py` downloads the product photos, removes their backgrounds (rembg, `isnet-general-use`)
 and serves transparent cutouts from `assets/products/`. Lifestyle shots (a piece worn by a model, fruit, fabric) are skipped
 automatically. To drop a cutout you don't like, add the product handle, or `handle-2` for its second photo, to
-`scripts/cutout_skip.txt`. If the cutout step fails, the site deploys with the original photos.
+`scripts/cutout_skip.txt`. To cut a piece out of a lifestyle shot (earrings held in a hand, a ring beside fruit), add the photo to `scripts/cutout_focus.txt` with a crop box around the piece. If the cutout step fails, the site deploys with the original photos.
 
 ## Before going live: replace placeholders
 - **Copy**: edit `js/i18n.js`. The story, collection names and descriptions are drafts.

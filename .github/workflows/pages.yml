@@ -37,7 +37,7 @@ jobs:
           path: |
             ~/.rembg
             assets/products
-          key: cutouts-${{ hashFiles('js/products.js', 'scripts/cutout_images.py', 'scripts/cutout_skip.txt') }}
+          key: cutouts-${{ hashFiles('js/products.js', 'scripts/cutout_images.py', 'scripts/cutout_skip.txt', 'scripts/cutout_focus.txt') }}
           restore-keys: cutouts-
       - name: Remove photo backgrounds
         continue-on-error: true

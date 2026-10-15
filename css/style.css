@@ -431,7 +431,7 @@ html[lang="fa"] .contact__title .line { padding: .1em 0 .6em; margin-bottom: -.7
 .contact__title .word { display: inline-block; transform: translateY(105%); transition: transform 1.3s var(--ease); }
 .contact__title.in .word { transform: none; }
 .contact__title.in .line:nth-child(2) .word { transition-delay: .12s; }
-.contact__lede { color: #aab0b8; max-width: 34rem; margin: 0 auto 3rem; position: relative; }
+.contact__lede { color: #aab0b8; max-width: none; margin: 0 auto 3rem; position: relative; text-wrap: balance; }
 .contact__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; position: relative; }
 .contact__links .btn span { direction: ltr; }
 

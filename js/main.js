@@ -29,12 +29,15 @@
     $$(".reveal-words").forEach(splitWords);
     if (window.Shop) window.Shop.setLang(lang);
     $$(".count").forEach((el) => { if (el.dataset.done) el.textContent = fmt(+el.dataset.to); });
+    // Step numbers follow the language's digits: 01 in English, ۰۱ in Persian.
+    $$(".step__num").forEach((el, i) => { el.textContent = digits(String(i + 1).padStart(2, "0")); });
     try { localStorage.setItem("fm-lang", lang); } catch (e) {}
     measure();
     onScroll();
   }
 
   const fmt = (n) => (lang === "fa" ? n.toLocaleString("fa-IR") : String(n));
+  const digits = (s) => (lang === "fa" ? s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]) : s);
 
   $(".lang").addEventListener("click", () => setLang(lang === "fa" ? "en" : "fa"));
 
