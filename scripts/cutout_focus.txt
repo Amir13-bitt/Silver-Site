@@ -1,0 +1,7 @@
+# Lifestyle photos whose piece should still be cut out. One per line:
+#   handle-N  left top right bottom
+# The four numbers are a crop box around the piece, as fractions of the photo's
+# width and height (0 = left/top edge, 1 = right/bottom edge). Only that part of
+# the photo is cut out; anything touching the box's edge (a hand, fruit) is dropped.
+invisible-silver-earrings-1  0.45 0.40 0.84 0.76
+ahil-and-pearl-earrings-1    0.08 0.62 0.70 0.94
