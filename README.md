@@ -38,4 +38,4 @@ automatically. To drop a cutout you don't like, add the product handle, or `hand
 
 ## Before going live: replace placeholders
 - **Copy**: edit `js/i18n.js`. The story, collection names and descriptions are drafts.
-- **Contact links**: in `index.html` (`#contact`), fill in the real Instagram handle, the WhatsApp number (`https://wa.me/<number>`) and the email address.
+- **Contact links**: Instagram (`faezemollaei`) and WhatsApp (`https://wa.me/989137293424`) are set in `index.html` (`#contact`); the email address is still a placeholder.
