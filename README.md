@@ -30,6 +30,12 @@ Assign the rest in `COLLECTION_OVERRIDES` at the top of the script. English name
 Prices are stored in rials and shown in toman. Draft products are skipped, and so are products without a usable photo
 (image links pointing to `localhost` are dropped). Only availability is published ("Sold out"), never stock counts.
 
+### v2 (experimental design)
+`/v2/` is a second version of the site with the same sections, products and translations but a louder design:
+a raymarched silver ring with a pearl in the hero (`v2/ring.js`), pearlescent gradients, and reveals and scroll scenes
+driven by [Motion](https://motion.dev) (vendored in `v2/vendor/motion.js`, MIT). It reads `js/products.js` and
+`js/i18n.js` from the main site, so product and copy changes apply to both versions.
+
 ### Photo cutouts
 On every deploy, `scripts/cutout_images.py` downloads the product photos, removes their backgrounds (rembg, `isnet-general-use`)
 and serves transparent cutouts from `assets/products/`. Lifestyle shots (a piece worn by a model, fruit, fabric) are skipped
