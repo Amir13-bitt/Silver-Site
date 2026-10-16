@@ -143,12 +143,18 @@ html[lang="fa"] .eyebrow { letter-spacing: .05em; font-size: .85rem; }
   padding: 1.25rem var(--gutter);
   transition: transform .6s var(--ease), background .4s, backdrop-filter .4s;
 }
+/* Soft dark scrim so the links stay readable over bright parts of the hero. */
+.nav::before {
+  content: ""; position: absolute; inset: 0 0 -2.5rem 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(rgba(8, 9, 11, .6), rgba(8, 9, 11, 0)); transition: opacity .4s;
+}
+.nav.is-scrolled::before { opacity: 0; }
 .nav.is-scrolled { background: rgba(11, 12, 14, .55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .nav.is-hidden { transform: translateY(-110%); }
 .nav__logo svg { width: 44px; height: 44px; transition: transform .8s var(--ease); }
 .nav__logo:hover svg { transform: rotate(-180deg); }
 .nav__links { display: flex; gap: 2.2rem; margin-inline-start: auto; font-size: .9rem; }
-.nav__links a { position: relative; color: var(--muted); transition: color .3s; }
+.nav__links a { position: relative; color: #d4d8dd; text-shadow: 0 1px 10px rgba(0, 0, 0, .7); transition: color .3s; }
 .nav__links a::after {
   content: ""; position: absolute; inset: auto 0 -4px 0; height: 1px; background: var(--ink);
   transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease);
@@ -160,9 +166,9 @@ html[lang="fa"] .eyebrow { letter-spacing: .05em; font-size: .85rem; }
   position: relative; display: flex; align-items: center; gap: .8rem;
   padding: .45rem .9rem; border: 1px solid var(--line); border-radius: 99px;
   font-family: "Jost", "Vazirmatn", sans-serif; font-size: .78rem;
-  direction: ltr;
+  direction: ltr; background: rgba(11, 12, 14, .45); border-color: rgba(233, 235, 238, .28);
 }
-.lang span { position: relative; z-index: 1; color: var(--muted); transition: color .4s; min-width: 1.4em; text-align: center; }
+.lang span { position: relative; z-index: 1; color: #d4d8dd; transition: color .4s; min-width: 1.4em; text-align: center; }
 .lang i {
   position: absolute; top: 3px; bottom: 3px; width: calc(50% - 4px); border-radius: 99px;
   background: #e9ebee; transition: transform .5s var(--ease); left: 3px;
@@ -267,12 +273,14 @@ html[lang="fa"] .hero__title .line--indent { padding-inline-start: 18vw; }
 .is-ready .hero__cta { transition-delay: .8s; }
 .hero__eyebrow { color: #c6cad0; }
 .hero__eyebrow, .hero__lede { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
+.hero__eyebrow { color: #c6cad0; text-shadow: 0 1px 10px rgba(0, 0, 0, .7); }
 .hero__lede { max-width: 32rem; font-size: clamp(1rem, 1.4vw, 1.2rem); color: #c6cad0; margin: 0 0 2.2rem; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
 .hero__scroll {
   position: absolute; z-index: 2; bottom: 2rem; inset-inline-end: var(--gutter);
   display: flex; flex-direction: column; align-items: center; gap: .8rem;
-  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
+  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: #c6cad0;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .7);
 }
 .hero__scroll i { width: 1px; height: 60px; background: linear-gradient(var(--ink), transparent); animation: drip 2.2s var(--ease) infinite; transform-origin: top; }
 @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
